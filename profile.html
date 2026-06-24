@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Saya — Lifa Flora</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .pf-page {
+      min-height: 100vh;
+      background: var(--pink-bg);
+      padding: 6rem 1rem 3rem;
+    }
+
+    .pf-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .pf-heading {
+      margin-bottom: 2rem;
+    }
+
+    .pf-heading .section-tag {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink-deep);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .pf-heading h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text-dark);
+    }
+
+    /* Layout dua kolom */
+    .pf-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 650px) {
+      .pf-layout { grid-template-columns: 1fr; }
+      .pf-sidebar { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+      .pf-menu-btn { flex: 1; min-width: 140px; justify-content: center; }
+    }
+
+    /* Sidebar menu */
+    .pf-sidebar {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .pf-avatar-box {
+      background: linear-gradient(135deg, var(--pink-light), var(--pink-bg));
+      padding: 1.5rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pf-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--pink-deep);
+      color: var(--white);
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+    }
+
+    .pf-avatar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .pf-avatar-email {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+      word-break: break-all;
+    }
+
+    .pf-menu-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem 1.25rem;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .pf-menu-btn:last-child {
+      border-bottom: none;
+    }
+
+    .pf-menu-btn:hover {
+      background: var(--pink-bg);
+      color: var(--pink-deep);
+    }
+
+    .pf-menu-btn.active {
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      font-weight: 600;
+    }
+
+    .pf-menu-icon {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Konten panel */
+    .pf-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pf-panel {
+      display: none;
+    }
+
+    .pf-panel.active {
+      display: block;
+    }
+
+    .pf-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 1.75rem;
+    }
+
+    .pf-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pf-field {
+      margin-bottom: 1rem;
+    }
+
+    .pf-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      margin-bottom: 0.35rem;
+    }
+
+    .pf-field input {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      background: var(--off-white);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .pf-field input:focus {
+      border-color: var(--pink-deep);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(232,117,143,0.12);
+    }
+
+    .pf-field input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .pf-save-btn {
+      padding: 0.75rem 1.75rem;
+      background: var(--pink-deep);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .pf-save-btn:hover {
+      background: #d4617a;
+      transform: translateY(-1px);
+    }
+
+    /* Riwayat pesanan */
+    .pf-order-card {
+      background: var(--pink-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .pf-order-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .pf-order-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pf-order-num {
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 0.92rem;
+    }
+
+    .pf-order-date {
+      font-size: 0.8rem;
+      color: var(--text-light);
+    }
+
+    .pf-order-items {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+    }
+
+    .pf-order-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .pf-order-total {
+      font-weight: 600;
+      color: var(--pink-deep);
+      font-size: 0.9rem;
+    }
+
+    .pf-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: var(--pink-light);
+      color: var(--pink-deep);
+    }
+
+    /* Logout button */
+    .pf-logout-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem 1.25rem;
+      background: none;
+      border: none;
+      border-top: 1px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #d4617a;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
+    }
+
+    .pf-logout-btn:hover {
+      background: #FDE8EE;
+    }
+
+    /* FAQ panel */
+    .pf-faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 0;
+    }
+
+    .pf-faq-item:last-child { border-bottom: none; }
+
+    .pf-faq-q {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .pf-faq-a {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* Password section */
+    .pf-hint {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🌸</span>
+        <span class="logo-text">Lifa <em>Flora</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#products" class="nav-link">Produk</a></li>
+        <li><a href="index.html#contact" class="nav-link">Kontak</a></li>
+        <li><a href="tracking.html" class="nav-link">Pesanan</a></li>
+        <li id="navLoginItem"><a href="login.html" class="nav-link">Login</a></li>
+        <li id="navUserItem" style="display:none;align-items:center;gap:0.5rem;">
+          <a href="profile.html" class="nav-link active" id="navUserName">👤 Akun</a>
+          <button class="nav-link nav-logout-btn" onclick="logoutUser()" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:0.4rem 0.75rem;">Keluar</button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== PROFILE PAGE ===================== -->
+  <main class="pf-page">
+    <div class="pf-container">
+
+      <div class="pf-heading">
+        <span class="section-tag">Akun Saya</span>
+        <h1>Pengaturan Profil</h1>
+      </div>
+
+      <div class="pf-layout">
+
+        <!-- SIDEBAR MENU -->
+        <aside class="pf-sidebar">
+          <!-- Avatar -->
+          <div class="pf-avatar-box">
+            <div class="pf-avatar">🌸</div>
+            <div class="pf-avatar-name" id="pfAvatarName">—</div>
+            <div class="pf-avatar-email" id="pfAvatarEmail">—</div>
+          </div>
+
+          <button class="pf-menu-btn active" data-panel="akun">
+            <span class="pf-menu-icon">👤</span> Akun Saya
+          </button>
+          <button class="pf-menu-btn" data-panel="pesanan">
+            <span class="pf-menu-icon">📦</span> Riwayat Pesanan
+          </button>
+          <button class="pf-menu-btn" data-panel="keamanan">
+            <span class="pf-menu-icon">🔒</span> Keamanan
+          </button>
+          <button class="pf-menu-btn" data-panel="bantuan">
+            <span class="pf-menu-icon">💬</span> Pusat Bantuan
+          </button>
+          <button class="pf-logout-btn" onclick="doLogout()">
+            <span class="pf-menu-icon">🚪</span> Keluar
+          </button>
+        </aside>
+
+        <!-- KONTEN PANEL -->
+        <div class="pf-content">
+
+          <!-- PANEL: Akun Saya -->
+          <div class="pf-panel active" id="akun">
+            <div class="pf-card">
+              <h3>👤 Akun Saya</h3>
+              <div class="pf-field">
+                <label for="pfNama">Nama Lengkap</label>
+                <input type="text" id="pfNama" placeholder="Nama kamu..." />
+              </div>
+              <div class="pf-field">
+                <label for="pfEmail">Email</label>
+                <input type="email" id="pfEmail" placeholder="email@contoh.com" disabled />
+                <p class="pf-hint">Email tidak dapat diubah</p>
+              </div>
+              <button class="pf-save-btn" id="pfSaveBtn">Simpan Perubahan</button>
+            </div>
+          </div>
+
+          <!-- PANEL: Riwayat Pesanan -->
+          <div class="pf-panel" id="pesanan">
+            <div class="pf-card">
+              <h3>📦 Riwayat Pesanan</h3>
+              <div id="pfOrderList">
+                <p style="color:var(--text-light);font-size:0.9rem;">Memuat pesanan...</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL: Keamanan -->
+          <div class="pf-panel" id="keamanan">
+            <div class="pf-card">
+              <h3>🔒 Ubah Password</h3>
+              <div class="pf-field">
+                <label for="pfOldPass">Password Lama</label>
+                <input type="password" id="pfOldPass" placeholder="••••••••" />
+              </div>
+              <div class="pf-field">
+                <label for="pfNewPass">Password Baru</label>
+                <input type="password" id="pfNewPass" placeholder="Minimal 6 karakter" minlength="6" />
+              </div>
+              <div class="pf-field">
+                <label for="pfConfirmPass">Konfirmasi Password Baru</label>
+                <input type="password" id="pfConfirmPass" placeholder="Ulangi password baru" />
+              </div>
+              <button class="pf-save-btn" id="pfChangePassBtn">Ubah Password</button>
+              <p class="pf-hint" id="pfPassMsg" style="margin-top:0.75rem;font-size:0.85rem;"></p>
+            </div>
+          </div>
+
+          <!-- PANEL: Pusat Bantuan -->
+          <div class="pf-panel" id="bantuan">
+            <div class="pf-card">
+              <h3>💬 Pusat Bantuan</h3>
+
+              <div class="pf-faq-item">
+                <div class="pf-faq-q">Bagaimana cara memesan buket?</div>
+                <div class="pf-faq-a">Pilih produk, masukkan ke keranjang, lalu klik Checkout. Isi data pengiriman dan klik Pesan & Kirim ke WhatsApp.</div>
+              </div>
+              <div class="pf-faq-item">
+                <div class="pf-faq-q">Berapa lama pengerjaan buket?</div>
+                <div class="pf-faq-a">Biasanya 1–2 hari kerja. Untuk same day bisa diatur, silakan hubungi kami via WhatsApp.</div>
+              </div>
+              <div class="pf-faq-item">
+                <div class="pf-faq-q">Apakah bisa custom warna atau model?</div>
+                <div class="pf-faq-a">Bisa! Kami menerima custom order. Hubungi kami lewat WhatsApp atau form kontak di halaman utama.</div>
+              </div>
+              <div class="pf-faq-item">
+                <div class="pf-faq-q">Bagaimana cara pembayaran?</div>
+                <div class="pf-faq-a">Tersedia Transfer SeaBank, BCA, COD, dan E-Wallet (OVO/GoPay/DANA). Pilih saat checkout.</div>
+              </div>
+              <div class="pf-faq-item">
+                <div class="pf-faq-q">Ada pengiriman ke luar Bandung?</div>
+                <div class="pf-faq-a">Saat ini kami melayani area Bandung dan sekitarnya. Untuk luar kota silakan hubungi kami dulu.</div>
+              </div>
+
+              <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border);">
+                <p style="font-size:0.88rem;color:var(--text-mid);margin-bottom:0.75rem;">Masih ada pertanyaan? Hubungi kami langsung:</p>
+                <a href="https://api.whatsapp.com/send?phone=6287710793723" target="_blank" class="pf-save-btn" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;">
+                  💬 Chat via WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+    loadState();
+    updateNavAuth();
+
+    // Redirect jika belum login
+    const session = getSession();
+    if (!session) {
+      window.location.href = 'login.html';
+    } else {
+      // Isi avatar
+      document.getElementById('pfAvatarName').textContent  = session.nama;
+      document.getElementById('pfAvatarEmail').textContent = session.email;
+
+      // Inisialisasi panel profil
+      initProfilePage();
+
+      // Ubah password
+      document.getElementById('pfChangePassBtn').addEventListener('click', () => {
+        const oldPass  = document.getElementById('pfOldPass').value;
+        const newPass  = document.getElementById('pfNewPass').value;
+        const confirm  = document.getElementById('pfConfirmPass').value;
+        const msgEl    = document.getElementById('pfPassMsg');
+
+        const users = getUsers();
+        const idx   = users.findIndex(u => u.id === session.id);
+
+        if (idx === -1) { msgEl.textContent = '❌ Akun tidak ditemukan.'; return; }
+        if (users[idx].password !== oldPass) { msgEl.textContent = '❌ Password lama salah.'; return; }
+        if (newPass.length < 6) { msgEl.textContent = '❌ Password baru minimal 6 karakter.'; return; }
+        if (newPass !== confirm) { msgEl.textContent = '❌ Konfirmasi password tidak cocok.'; return; }
+
+        users[idx].password = newPass;
+        saveUsers(users);
+        msgEl.style.color = 'var(--green-deep)';
+        msgEl.textContent = '✅ Password berhasil diubah!';
+        document.getElementById('pfOldPass').value     = '';
+        document.getElementById('pfNewPass').value     = '';
+        document.getElementById('pfConfirmPass').value = '';
+      });
+    }
+
+    // Logout
+    function doLogout() {
+      clearSession();
+      window.location.href = 'index.html';
+    }
+
+    // Switch panel menu
+    document.querySelectorAll('.pf-menu-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pf-menu-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.pf-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.panel);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
