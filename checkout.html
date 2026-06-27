@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — Lifa Flora</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    /* ===== QRIS CARD ===== */
+    .qris-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: 0.25rem;
+    }
+    .qris-top-bar {
+      background: #E8002D;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .qris-top-bar span { color: white; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; }
+    .qris-top-bar img { height: 22px; filter: brightness(0) invert(1); }
+    .qris-body { padding: 1rem; text-align: center; }
+    .qris-merchant-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--text-dark); margin-bottom: 0.1rem;
+    }
+    .qris-merchant-nmid {
+      font-size: 0.72rem; color: var(--text-light); margin-bottom: 0.75rem;
+    }
+    .qris-img-wrap {
+      position: relative;
+      display: inline-block;
+      padding: 0.75rem;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      background: white;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .qris-img-wrap img {
+      width: 180px; height: 180px;
+      display: block;
+      image-rendering: pixelated;
+    }
+    .qris-logo-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px; height: 36px;
+      background: white;
+      border-radius: 6px;
+      padding: 3px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .qris-amount-badge {
+      display: inline-block;
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      font-weight: 700; font-size: 0.88rem;
+      padding: 0.3rem 1rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.75rem;
+    }
+    .qris-steps {
+      text-align: left;
+      background: var(--pink-bg);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .qris-step {
+      display: flex; align-items: flex-start; gap: 0.4rem;
+      font-size: 0.78rem; color: var(--text-mid);
+      margin-bottom: 0.25rem;
+    }
+    .qris-step:last-child { margin-bottom: 0; }
+    .qris-step-num {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--pink-deep); color: white;
+      font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .qris-footer-logos {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap;
+    }
+    .qris-app-badge {
+      font-size: 0.68rem; color: var(--text-light);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+    .co-page {
+      min-height: 100vh;
+      background: var(--pink-bg);
+      padding: 6rem 1rem 3rem;
+    }
+
+    .co-container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .co-heading {
+      margin-bottom: 2rem;
+    }
+
+    .co-heading .section-tag {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink-deep);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .co-heading h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text-dark);
+    }
+
+    .co-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 700px) {
+      .co-grid { grid-template-columns: 1fr; }
+    }
+
+    .co-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      padding: 1.75rem;
+    }
+
+    .co-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--text-dark);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .co-field {
+      margin-bottom: 1rem;
+    }
+
+    .co-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      margin-bottom: 0.35rem;
+    }
+
+    .co-field input,
+    .co-field select,
+    .co-field textarea {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      background: var(--off-white);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .co-field input:focus,
+    .co-field select:focus,
+    .co-field textarea:focus {
+      border-color: var(--pink-deep);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(232,117,143,0.12);
+    }
+
+    .co-field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Ringkasan item */
+    .co-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .co-item:last-child {
+      border-bottom: none;
+    }
+
+    .co-emoji {
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      background: var(--pink-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .co-item-name {
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.92rem;
+    }
+
+    .co-item-price {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 0.15rem;
+    }
+
+    /* Ringkasan harga */
+    .co-summary {
+      margin-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+
+    .co-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .co-row.total {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .co-free {
+      color: var(--green-deep);
+      font-weight: 500;
+    }
+
+    .co-discount {
+      color: var(--pink-deep);
+    }
+
+    /* Tombol submit */
+    .co-submit-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: 0.9rem;
+      background: var(--pink-deep);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .co-submit-btn:hover {
+      background: #d4617a;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .co-submit-btn:disabled {
+      background: var(--text-light);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .co-error {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: #d4617a;
+      min-height: 1rem;
+    }
+
+    .co-empty {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-light);
+    }
+
+    .co-empty span {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    .co-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--pink-deep);
+      text-decoration: none;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .co-back-btn:hover {
+      gap: 0.6rem;
+    }
+
+    /* ===== PANEL BANK & E-WALLET ===== */
+    .payment-info-panel {
+      display: none;
+      margin-top: 0.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .payment-info-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .payment-info-logo {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; color: white;
+      flex-shrink: 0;
+    }
+
+    .payment-info-name {
+      font-weight: 700; font-size: 0.88rem; color: var(--text-dark);
+    }
+
+    .payment-info-type {
+      font-size: 0.72rem; color: var(--text-light);
+    }
+
+    .payment-info-body {
+      padding: 0.75rem 0.9rem;
+      background: var(--off-white);
+    }
+
+    .payment-info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 0.35rem; font-size: 0.85rem;
+    }
+
+    .payment-info-row:last-child { margin-bottom: 0; }
+
+    .payment-info-label { color: var(--text-light); font-size: 0.78rem; }
+
+    .payment-info-value {
+      font-weight: 700; font-size: 0.95rem;
+      color: var(--text-dark);
+      letter-spacing: 0.03em;
+    }
+
+    .payment-copy-btn {
+      font-size: 0.72rem; color: var(--pink-deep);
+      background: var(--pink-light);
+      border: none; border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .payment-copy-btn:hover { background: var(--pink-deep); color: white; }
+
+    .payment-info-note {
+      font-size: 0.75rem; color: var(--text-light);
+      background: #FFF9E6;
+      border-top: 1px solid var(--border);
+      padding: 0.5rem 0.9rem;
+      display: flex; align-items: flex-start; gap: 0.35rem;
+    }
+
+    /* ===== PAYMENT CATEGORY GRID ===== */
+    .pay-category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 0.35rem;
+    }
+
+    .pay-cat-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.85rem 0.5rem;
+      background: var(--off-white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      text-align: center;
+    }
+
+    .pay-cat-btn:hover {
+      border-color: var(--pink-deep);
+      background: var(--pink-light);
+    }
+
+    .pay-cat-btn.selected {
+      border-color: var(--pink-deep);
+      background: var(--pink-light);
+    }
+
+    .pay-cat-icon { font-size: 1.5rem; line-height: 1; }
+    .pay-cat-label { font-size: 0.82rem; font-weight: 600; color: var(--text-dark); }
+    .pay-cat-count { font-size: 0.7rem; color: var(--text-light); }
+
+    /* Panel detail bank/ewallet */
+    .pay-detail-panel {
+      margin-top: 0.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      animation: paySlideIn 0.2s ease;
+    }
+
+    @keyframes paySlideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .pay-detail-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.85rem;
+      background: var(--pink-bg);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .pay-back-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--pink-deep);
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .pay-back-btn:hover { text-decoration: underline; }
+
+    .pay-bank-list { padding: 0.4rem; }
+
+    .pay-bank-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      background: none;
+      border: 1.5px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+      text-align: left;
+      margin-bottom: 0.25rem;
+    }
+
+    .pay-bank-btn:last-child { margin-bottom: 0; }
+
+    .pay-bank-btn:hover {
+      background: var(--pink-bg);
+      border-color: var(--border);
+    }
+
+    .pay-bank-btn.selected {
+      background: var(--pink-light);
+      border-color: var(--pink-deep);
+    }
+
+    .pay-bank-logo {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .pay-bank-info { flex: 1; }
+    .pay-bank-name { font-size: 0.88rem; font-weight: 600; color: var(--text-dark); }
+    .pay-bank-num  { font-size: 0.8rem; color: var(--text-light); font-family: monospace; letter-spacing: 0.05em; }
+
+    .pay-bank-check {
+      font-size: 1rem;
+      color: var(--text-light);
+      flex-shrink: 0;
+    }
+
+    .pay-bank-btn.selected .pay-bank-check {
+      color: var(--pink-deep);
+    }
+
+    /* Rekening info box */
+    .pay-selected-info {
+      display: none;
+      margin-top: 0.5rem;
+      background: var(--pink-bg);
+      border: 1.5px solid var(--pink-deep);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+    }
+
+    .pay-selected-info.show { display: block; }
+
+    .pay-selected-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .pay-selected-row:last-child { margin-bottom: 0; }
+    .pay-selected-label { color: var(--text-light); font-size: 0.78rem; }
+    .pay-selected-value { font-weight: 700; color: var(--text-dark); font-family: monospace; letter-spacing: 0.05em; }
+
+    .pay-copy-btn {
+      font-size: 0.72rem; color: var(--pink-deep);
+      background: var(--pink-light);
+      border: none; border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .pay-copy-btn:hover { background: var(--pink-deep); color: white; }
+
+    /* COD info */
+    .pay-cod-info {
+      display: none;
+      margin-top: 0.5rem;
+      background: var(--green-light);
+      border: 1.5px solid var(--green-deep);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-size: 0.85rem;
+      color: var(--green-deep);
+      line-height: 1.6;
+    }
+
+    .pay-cod-info.show { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🌸</span>
+        <span class="logo-text">Lifa <em>Flora</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#products" class="nav-link">Produk</a></li>
+        <li><a href="index.html#contact" class="nav-link">Kontak</a></li>
+        <li><a href="tracking.html" class="nav-link">Pesanan</a></li>
+        <li id="navLoginItem"><a href="login.html" class="nav-link">Login</a></li>
+        <li id="navUserItem" style="display:none;align-items:center;gap:0.5rem;">
+          <a href="profile.html" class="nav-link" id="navUserName">👤 Akun</a>
+          <button class="nav-link nav-logout-btn" onclick="logoutUser()" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:0.4rem 0.75rem;">Keluar</button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== CHECKOUT PAGE ===================== -->
+  <main class="co-page">
+    <div id="apinWatermark">Developed by Apin</div>
+    <div class="co-container">
+
+      <a href="index.html" class="co-back-btn">← Kembali belanja</a>
+
+      <div class="co-heading">
+        <span class="section-tag">Langkah Terakhir</span>
+        <h1>Checkout</h1>
+      </div>
+
+      <div class="co-grid">
+
+        <!-- KIRI: Form biodata & pengiriman -->
+        <div>
+          <div class="co-card">
+            <h3>🙋 Data Pemesan</h3>
+            <div class="co-field">
+              <label for="coNama">Nama Lengkap</label>
+              <input type="text" id="coNama" placeholder="Masukkan nama lengkap" />
+            </div>
+            <div class="co-field">
+              <label for="coPhone">Nomor WhatsApp</label>
+              <input type="tel" id="coPhone" placeholder="+62..." />
+            </div>
+            <div class="co-field">
+              <label for="coAlamat">Alamat Pengiriman</label>
+              <textarea id="coAlamat" placeholder="Jalan, kelurahan, kecamatan, kota..."></textarea>
+            </div>
+          </div>
+
+          <div class="co-card" style="margin-top:1.25rem;">
+            <h3>🚗 Pengiriman & Pembayaran</h3>
+            <div class="co-field">
+              <label for="coShipping">Metode Pengiriman</label>
+              <select id="coShipping">
+                <option value="0">Reguler — GRATIS (1–2 hari)</option>
+                <option value="10000">Express — Rp 10.000 (hari ini)</option>
+                <option value="20000">Same Day — Rp 20.000 (2–4 jam)</option>
+              </select>
+            </div>
+            <div class="co-field">
+              <label>Metode Pembayaran</label>
+
+              <!-- Step 1: Pilih Kategori -->
+              <div class="pay-category-grid" id="payCategoryGrid">
+                <button type="button" class="pay-cat-btn" data-cat="bank" onclick="selectPayCategory('bank')">
+                  <span class="pay-cat-icon">🏦</span>
+                  <span class="pay-cat-label">Transfer Bank</span>
+                  <span class="pay-cat-count">6 bank</span>
+                </button>
+                <button type="button" class="pay-cat-btn" data-cat="qris" onclick="selectPayCategory('qris')">
+                  <span class="pay-cat-icon">⬛</span>
+                  <span class="pay-cat-label">QRIS</span>
+                  <span class="pay-cat-count">Semua dompet</span>
+                </button>
+                <button type="button" class="pay-cat-btn" data-cat="ewallet" onclick="selectPayCategory('ewallet')">
+                  <span class="pay-cat-icon">💳</span>
+                  <span class="pay-cat-label">E-Wallet</span>
+                  <span class="pay-cat-count">4 pilihan</span>
+                </button>
+                <button type="button" class="pay-cat-btn" data-cat="cod" onclick="selectPayCategory('cod')">
+                  <span class="pay-cat-icon">🏠</span>
+                  <span class="pay-cat-label">COD</span>
+                  <span class="pay-cat-count">Bayar di tempat</span>
+                </button>
+              </div>
+
+              <!-- Step 2: Pilih Bank (muncul jika pilih Bank) -->
+              <div class="pay-detail-panel" id="payBankPanel" style="display:none;">
+                <div class="pay-detail-header">
+                  <button type="button" class="pay-back-btn" onclick="resetPayCategory()">← Ganti</button>
+                  <span>Pilih Bank</span>
+                </div>
+                <div class="pay-bank-list">
+                  <button type="button" class="pay-bank-btn" data-value="Transfer BCA" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#005DAA">BCA</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">Bank BCA</div><div class="pay-bank-num">7772114683</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="Transfer BRI" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#003399">BRI</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">Bank BRI</div><div class="pay-bank-num">123456789012345</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="Transfer BNI" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#F26522">BNI</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">Bank BNI</div><div class="pay-bank-num">1980210946</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="Transfer Mandiri" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#003087">MAN</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">Bank Mandiri</div><div class="pay-bank-num">1230012345678</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="Transfer BSI" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#00543D">BSI</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">Bank BSI</div><div class="pay-bank-num">7123456789</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="Transfer SeaBank" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#1A73E8">SEA</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">SeaBank</div><div class="pay-bank-num">901809290073</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 2: E-Wallet Panel -->
+              <div class="pay-detail-panel" id="payEwalletPanel" style="display:none;">
+                <div class="pay-detail-header">
+                  <button type="button" class="pay-back-btn" onclick="resetPayCategory()">← Ganti</button>
+                  <span>Pilih E-Wallet</span>
+                </div>
+                <div class="pay-bank-list">
+                  <button type="button" class="pay-bank-btn" data-value="GoPay" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#00880A">GP</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">GoPay</div><div class="pay-bank-num">081222315445</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="OVO" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#4C3494">OVO</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">OVO</div><div class="pay-bank-num">081222315445</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="DANA" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#118EEA">DNA</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">DANA</div><div class="pay-bank-num">081222315445</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                  <button type="button" class="pay-bank-btn" data-value="ShopeePay" onclick="selectBank(this)">
+                    <div class="pay-bank-logo" style="background:#EE4D2D">SPY</div>
+                    <div class="pay-bank-info"><div class="pay-bank-name">ShopeePay</div><div class="pay-bank-num">081222315445</div></div>
+                    <span class="pay-bank-check">○</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Hidden input untuk menyimpan nilai pembayaran -->
+              <input type="hidden" id="coPayment" value="" />
+
+              <!-- Box rekening terpilih -->
+              <div class="pay-selected-info" id="paySelectedInfo">
+                <div class="pay-selected-row">
+                  <span id="paySelName" style="font-weight:600;color:var(--pink-deep);font-size:0.85rem;"></span>
+                </div>
+                <div class="pay-selected-row">
+                  <span class="pay-selected-label">No. Rekening</span>
+                  <div style="display:flex;align-items:center;gap:0.4rem;">
+                    <span class="pay-selected-value" id="paySelNum">-</span>
+                    <button type="button" class="pay-copy-btn" onclick="copySelNum()">Salin</button>
+                  </div>
+                </div>
+                <div class="pay-selected-row">
+                  <span class="pay-selected-label">Atas Nama</span>
+                  <span style="font-weight:600;font-size:0.85rem;color:var(--text-dark);" id="paySelHolder">Lifa Flora</span>
+                </div>
+              </div>
+
+              <!-- COD info -->
+              <div class="pay-cod-info" id="payCodInfo">
+                🏠 <strong>Bayar di Tempat (COD)</strong><br/>
+                Kurir kami akan mengantarkan pesanan dan kamu membayar saat barang tiba.
+                Pastikan uang pas sudah disiapkan ya! 😊
+              </div>
+            </div>
+            <!-- QRIS Panel -->
+            <div id="qrisContainer" style="display:none;">
+              <div class="qris-card">
+                <!-- Header merah QRIS -->
+                <div class="qris-top-bar">
+                  <span>⬛ QRIS</span>
+                  <span style="font-size:0.72rem;letter-spacing:0">Satu QR untuk semua</span>
+                </div>
+                <div class="qris-body">
+                  <div class="qris-merchant-name">🌸 LIFA FLORA</div>
+                  <div class="qris-merchant-nmid">NMID: ID10230098765432</div>
+
+                  <!-- QR Image -->
+                  <div class="qris-img-wrap">
+                    <img src="images/qris.png" alt="QR QRIS Lifa Flora" id="qrisImg" />
+                    <div class="qris-logo-center">🌸</div>
+                  </div>
+
+                  <!-- Nominal -->
+                  <div class="qris-amount-badge" id="qrisAmountBadge">
+                    Nominal: sesuai total checkout
+                  </div>
+
+                  <!-- Langkah scan -->
+                  <div class="qris-steps">
+                    <div class="qris-step"><div class="qris-step-num">1</div><span>Buka aplikasi m-banking atau e-wallet kamu</span></div>
+                    <div class="qris-step"><div class="qris-step-num">2</div><span>Pilih menu <strong>Scan QR</strong> atau <strong>QRIS</strong></span></div>
+                    <div class="qris-step"><div class="qris-step-num">3</div><span>Arahkan kamera ke QR di atas</span></div>
+                    <div class="qris-step"><div class="qris-step-num">4</div><span>Masukkan nominal & konfirmasi pembayaran</span></div>
+                  </div>
+
+                  <!-- Logo aplikasi yang didukung -->
+                  <div class="qris-footer-logos">
+                    <span class="qris-app-badge">GoPay</span>
+                    <span class="qris-app-badge">OVO</span>
+                    <span class="qris-app-badge">DANA</span>
+                    <span class="qris-app-badge">ShopeePay</span>
+                    <span class="qris-app-badge">LinkAja</span>
+                    <span class="qris-app-badge">BCA</span>
+                    <span class="qris-app-badge">BRI</span>
+                    <span class="qris-app-badge">Mandiri</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Panel info rekening bank / e-wallet -->
+            <div class="payment-info-panel" id="paymentInfoPanel">
+              <div class="payment-info-header">
+                <div class="payment-info-logo" id="paymentLogo">🏦</div>
+                <div>
+                  <div class="payment-info-name" id="paymentName">Transfer Bank</div>
+                  <div class="payment-info-type" id="paymentType">Transfer Manual</div>
+                </div>
+              </div>
+              <div class="payment-info-body">
+                <div class="payment-info-row">
+                  <span class="payment-info-label">No. Rekening / Nomor</span>
+                  <div style="display:flex;align-items:center;gap:0.4rem;">
+                    <span class="payment-info-value" id="paymentNumber">-</span>
+                    <button class="payment-copy-btn" onclick="copyPaymentNumber()">Salin</button>
+                  </div>
+                </div>
+                <div class="payment-info-row">
+                  <span class="payment-info-label">Atas Nama</span>
+                  <span style="font-size:0.85rem;font-weight:600;color:var(--text-dark)">Lifa Flora</span>
+                </div>
+              </div>
+              <div class="payment-info-note">
+                💡 Simpan nomor ini sebelum checkout. Kirim bukti transfer ke WhatsApp kami setelah bayar.
+              </div>
+            </div>
+
+            <div class="co-field">
+              <label for="coVoucher">Kode Voucher (opsional)</label>
+              <input type="text" id="coVoucher" placeholder="Contoh: LIFA10" />
+            </div>
+          </div>
+        </div>
+
+        <!-- KANAN: Ringkasan pesanan -->
+        <div>
+          <div class="co-card">
+            <h3>🛍️ Ringkasan Pesanan</h3>
+
+            <!-- Item list — diisi JS -->
+            <div id="coCartItems">
+              <div class="co-empty">
+                <span>🌿</span>
+                <p>Keranjang kosong.<br/>Silakan pilih produk dulu.</p>
+              </div>
+            </div>
+
+            <!-- Totals -->
+            <div class="co-summary">
+              <div class="co-row">
+                <span>Subtotal</span>
+                <span id="coSubtotal">Rp 0</span>
+              </div>
+              <div class="co-row">
+                <span>Diskon</span>
+                <span class="co-discount" id="coDiscount">-Rp 0</span>
+              </div>
+              <div class="co-row">
+                <span>Ongkir</span>
+                <span class="co-free" id="coOngkir">GRATIS</span>
+              </div>
+              <div class="co-row total">
+                <span>Total Bayar</span>
+                <span id="coTotal">Rp 0</span>
+              </div>
+            </div>
+
+            <button class="co-submit-btn" id="coSubmitBtn">
+              <i data-lucide="send"></i> Pesan & Kirim ke WhatsApp
+            </button>
+            <p class="co-error" id="coError"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script>
+    /* ===== PAYMENT CATEGORY SYSTEM ===== */
+    let _selectedPayValue = "";
+
+    function selectPayCategory(cat) {
+      // Highlight tombol kategori
+      document.querySelectorAll(".pay-cat-btn").forEach(b => b.classList.remove("selected"));
+      document.querySelector(`.pay-cat-btn[data-cat="${cat}"]`)?.classList.add("selected");
+
+      // Sembunyikan semua panel
+      ["payBankPanel","payEwalletPanel","qrisContainer","payCodInfo"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+
+      // Sembunyikan info rekening terpilih
+      const infoBox = document.getElementById("paySelectedInfo");
+      if (infoBox) infoBox.classList.remove("show");
+
+      // Reset pilihan bank/ewallet
+      document.querySelectorAll(".pay-bank-btn").forEach(b => {
+        b.classList.remove("selected");
+        const chk = b.querySelector(".pay-bank-check");
+        if (chk) chk.textContent = "○";
+      });
+      _selectedPayValue = "";
+      document.getElementById("coPayment").value = "";
+
+      if (cat === "bank") {
+        document.getElementById("payBankPanel").style.display = "block";
+      } else if (cat === "ewallet") {
+        document.getElementById("payEwalletPanel").style.display = "block";
+      } else if (cat === "qris") {
+        document.getElementById("qrisContainer").style.display = "block";
+        _selectedPayValue = "QRIS";
+        document.getElementById("coPayment").value = "QRIS";
+        updateQrisNominal();
+      } else if (cat === "cod") {
+        const codInfo = document.getElementById("payCodInfo");
+        if (codInfo) { codInfo.style.display = "block"; codInfo.classList.add("show"); }
+        _selectedPayValue = "COD";
+        document.getElementById("coPayment").value = "COD";
+      }
+    }
+
+    function resetPayCategory() {
+      // Kembali ke grid kategori
+      document.querySelectorAll(".pay-cat-btn").forEach(b => b.classList.remove("selected"));
+      ["payBankPanel","payEwalletPanel","qrisContainer","payCodInfo"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = "none";
+      });
+      const infoBox = document.getElementById("paySelectedInfo");
+      if (infoBox) infoBox.classList.remove("show");
+      _selectedPayValue = "";
+      document.getElementById("coPayment").value = "";
+    }
+
+    function selectBank(btn) {
+      // Hapus selected dari semua tombol di panel aktif
+      btn.closest(".pay-bank-list").querySelectorAll(".pay-bank-btn").forEach(b => {
+        b.classList.remove("selected");
+        const chk = b.querySelector(".pay-bank-check");
+        if (chk) chk.textContent = "○";
+      });
+
+      btn.classList.add("selected");
+      const chk = btn.querySelector(".pay-bank-check");
+      if (chk) chk.textContent = "●";
+
+      _selectedPayValue = btn.dataset.value;
+      document.getElementById("coPayment").value = _selectedPayValue;
+
+      // Tampilkan info rekening terpilih
+      const numEl   = btn.querySelector(".pay-bank-num");
+      const nameEl  = btn.querySelector(".pay-bank-name");
+      const logoEl  = btn.querySelector(".pay-bank-logo");
+      const number  = numEl?.textContent  || "-";
+      const name    = nameEl?.textContent || "-";
+      const bgColor = logoEl?.style.background || "#999";
+
+      const infoBox = document.getElementById("paySelectedInfo");
+      if (infoBox) {
+        document.getElementById("paySelName").textContent   = "✅ " + name + " dipilih";
+        document.getElementById("paySelNum").textContent    = number;
+        document.getElementById("paySelHolder").textContent = "Lifa Flora";
+        infoBox.classList.add("show");
+      }
+    }
+
+    function copySelNum() {
+      const num = document.getElementById("paySelNum")?.textContent;
+      if (!num || num === "-") return;
+      navigator.clipboard.writeText(num)
+        .then(() => showToast("✅ " + num + " berhasil disalin!"))
+        .catch(() => showToast("Salin manual: " + num));
+    }
+
+    function updateQrisNominal() {
+      const totalText = document.getElementById("coTotal")?.textContent || "";
+      const badge = document.getElementById("qrisAmountBadge");
+      if (badge && totalText) badge.textContent = "Nominal: " + totalText;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Update nominal QRIS saat ongkir/voucher berubah
+      document.getElementById("coShipping")?.addEventListener("change", () => setTimeout(updateQrisNominal, 200));
+      document.getElementById("coVoucher")?.addEventListener("input",  () => setTimeout(updateQrisNominal, 400));
+    });
+    lucide.createIcons();
+    loadState();
+    updateNavAuth();
+    initCheckoutPage();
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+  <script>initCSWidget();</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Admin — Lifa Flora</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin_style.css" />
+</head>
+<body>
+
+  <main class="ad-auth-page">
+    <div class="ad-auth-card">
+      <span class="ad-auth-icon">🌸</span>
+      <h1 class="ad-auth-title">Lifa Flora Admin</h1>
+      <p class="ad-auth-sub">Masuk ke panel pengelola toko</p>
+
+      <form onsubmit="doLogin(event)">
+        <div class="ad-auth-field">
+          <label for="adminPwd">Kata Sandi Admin</label>
+          <input type="password" id="adminPwd" placeholder="••••••••" required autofocus />
+        </div>
+        <button type="submit" class="ad-auth-btn">Masuk</button>
+        <p class="ad-auth-msg" id="adminLoginMsg"></p>
+      </form>
+
+      <p class="ad-auth-hint">Kembali ke <a href="index.html" style="color:var(--ad-pink)">Halaman Toko →</a></p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="admin_script.js"></script>
+  <script>
+    // Jika sudah login, langsung ke dashboard
+    if (isLoggedIn()) window.location.href = "admin_dashboard.html";
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produk — Lifa Flora Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin_style.css" />
+</head>
+<body>
+
+<div class="ad-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="ad-sidebar">
+    <div class="ad-brand">
+      <div class="ad-brand-icon">🌸</div>
+      <div class="ad-brand-name">Lifa <em>Flora</em></div>
+      <div class="ad-brand-sub">Panel Admin</div>
+    </div>
+    <nav class="ad-nav">
+      <a href="admin_dashboard.html" class="ad-nav-link"><span class="ad-nav-icon">📊</span> Dashboard</a>
+      <a href="admin_produk.html"    class="ad-nav-link active"><span class="ad-nav-icon">🌹</span> Produk</a>
+      <a href="admin_pesanan.html"   class="ad-nav-link"><span class="ad-nav-icon">📦</span> Pesanan</a>
+    </nav>
+    <div class="ad-sidebar-footer">
+      <button class="ad-logout-btn" onclick="doLogout()">🚪 Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ad-main">
+    <div class="ad-topbar">
+      <div>
+        <div class="ad-page-title">Kelola Produk</div>
+        <div class="ad-page-sub">Tambah, edit, hapus, dan atur stok produk</div>
+      </div>
+      <a href="admin_tambah_produk.html" class="ad-btn-add">+ Tambah Produk</a>
+    </div>
+
+    <div class="ad-card">
+      <div class="ad-card-header">
+        <span class="ad-card-title">🌹 Daftar Produk</span>
+        <span id="produkCount" style="font-size:0.82rem;color:var(--ad-muted)"></span>
+      </div>
+      <div class="ad-table-wrap">
+        <table class="ad-table">
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Kategori</th>
+              <th>Harga</th>
+              <th>Stok</th>
+              <th>Label</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="produkTableBody">
+            <tr><td colspan="6" class="ad-empty">Memuat...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="admin_script.js"></script>
+<script>
+  initProduk();
+  // Tampilkan jumlah produk
+  setTimeout(() => {
+    const el = document.getElementById("produkCount");
+    if (el) el.textContent = products.length + " produk";
+  }, 100);
+</script>
+</body>
+</html>

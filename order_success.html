@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pesanan Berhasil — Lifa Flora</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .os-page {
+      min-height: 100vh;
+      background: var(--pink-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1rem 3rem;
+    }
+
+    .os-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
+
+    .os-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 2.2rem;
+    }
+
+    .os-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      color: var(--text-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .os-subtitle {
+      color: var(--text-light);
+      font-size: 0.92rem;
+      margin-bottom: 2rem;
+    }
+
+    .os-info-box {
+      background: var(--pink-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .os-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .os-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .os-info-row span:first-child {
+      color: var(--text-light);
+    }
+
+    .os-info-row span:last-child {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .os-total {
+      font-size: 1.05rem !important;
+      color: var(--pink-deep) !important;
+    }
+
+    .os-status-badge {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .os-items {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .os-items h4 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .os-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .os-item:last-child {
+      border-bottom: none;
+    }
+
+    .os-item-emoji {
+      font-size: 1.5rem;
+      width: 36px;
+      height: 36px;
+      background: var(--pink-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .os-item-name {
+      flex: 1;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .os-item-qty {
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+
+    .os-item-price {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .os-note {
+      font-size: 0.83rem;
+      color: var(--text-light);
+      background: var(--green-light);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    .os-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .os-btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem;
+      background: var(--pink-deep);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .os-btn-primary:hover {
+      background: #d4617a;
+      transform: translateY(-1px);
+    }
+
+    .os-btn-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem;
+      background: transparent;
+      color: var(--pink-deep);
+      border: 1.5px solid var(--pink-deep);
+      border-radius: var(--radius-full);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .os-btn-outline:hover {
+      background: var(--pink-light);
+    }
+
+    /* animasi centang muncul */
+    @keyframes popIn {
+      0%   { transform: scale(0.5); opacity: 0; }
+      80%  { transform: scale(1.1); }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    .os-icon {
+      animation: popIn 0.5s cubic-bezier(0.4,0,0.2,1) both;
+    }
+
+    /* ---- STRUK MODAL ---- */
+    .struk-overlay {
+      position: fixed; inset: 0;
+      background: rgba(42,31,45,0.5);
+      z-index: 9900;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .struk-overlay.open { opacity: 1; pointer-events: all; }
+
+    .struk-box {
+      background: #fff;
+      width: 100%; max-width: 360px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+      transform: translateY(20px);
+      transition: transform 0.25s;
+    }
+    .struk-overlay.open .struk-box { transform: translateY(0); }
+
+    /* Area struk yang bisa diprint */
+    .struk {
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #111;
+      padding: 1.5rem 1.25rem;
+      line-height: 1.6;
+    }
+
+    .struk-header { text-align: center; margin-bottom: 0.75rem; }
+    .struk-logo   { font-size: 1.5rem; }
+    .struk-store  { font-size: 1rem; font-weight: 700; letter-spacing: 0.05em; margin: 0.25rem 0 0; }
+    .struk-tagline { font-size: 0.72rem; color: #555; }
+    .struk-divider { border: none; border-top: 1px dashed #ccc; margin: 0.75rem 0; }
+    .struk-divider.bold { border-top: 2px solid #111; }
+
+    .struk-row {
+      display: flex; justify-content: space-between;
+      margin-bottom: 0.2rem; font-size: 0.8rem;
+    }
+    .struk-row .label { color: #555; }
+    .struk-row .value { font-weight: 600; text-align: right; max-width: 55%; }
+
+    .struk-items { margin: 0.5rem 0; }
+    .struk-item { margin-bottom: 0.3rem; }
+    .struk-item-name { font-size: 0.8rem; }
+    .struk-item-sub  { display: flex; justify-content: space-between; font-size: 0.78rem; color: #444; padding-left: 0.5rem; }
+
+    .struk-total-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem; font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .struk-footer { text-align: center; margin-top: 0.75rem; font-size: 0.75rem; color: #555; }
+    .struk-footer p { margin: 0.1rem 0; }
+    .struk-footer .big { font-size: 1rem; }
+
+    /* Tombol di bawah struk (tidak diprint) */
+    .struk-actions {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid #eee;
+      display: flex; gap: 0.6rem;
+    }
+
+    .struk-print-btn {
+      flex: 1; padding: 0.7rem;
+      background: var(--pink-deep); color: white;
+      border: none; border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .struk-print-btn:hover { background: #d4617a; }
+
+    .struk-close-btn {
+      flex: 1; padding: 0.7rem;
+      background: transparent; color: var(--text-mid);
+      border: 1px solid var(--border); border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; cursor: pointer;
+    }
+    .struk-close-btn:hover { background: var(--pink-bg); }
+
+    /* Print styles */
+    @media print {
+      body * { visibility: hidden !important; }
+      .struk, .struk * { visibility: visible !important; }
+      .struk { position: fixed; inset: 0; padding: 1cm; }
+      .struk-overlay { display: block !important; background: none !important; }
+      .struk-actions { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🌸</span>
+        <span class="logo-text">Lifa <em>Flora</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#products" class="nav-link">Produk</a></li>
+        <li><a href="index.html#contact" class="nav-link">Kontak</a></li>
+        <li><a href="tracking.html" class="nav-link">Pesanan</a></li>
+        <li id="navLoginItem"><a href="login.html" class="nav-link">Login</a></li>
+        <li id="navUserItem" style="display:none;align-items:center;gap:0.5rem;">
+          <a href="profile.html" class="nav-link" id="navUserName">👤 Akun</a>
+          <button class="nav-link nav-logout-btn" onclick="logoutUser()" style="background:none;border:none;cursor:pointer;font-family:inherit;font-size:inherit;color:inherit;padding:0.4rem 0.75rem;">Keluar</button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== SUCCESS PAGE ===================== -->
+  <main class="os-page">
+    <div id="apinWatermark">Developed by Apin</div>
+    <div class="os-card">
+
+      <div class="os-icon">🌸</div>
+      <h1 class="os-title">Pesanan Diterima!</h1>
+      <p class="os-subtitle">Terima kasih sudah memesan di Lifa Flora 💐</p>
+
+      <!-- Info pesanan -->
+      <div class="os-info-box">
+        <div class="os-info-row">
+          <span>No. Pesanan</span>
+          <span id="osOrderNum">-</span>
+        </div>
+        <div class="os-info-row">
+          <span>Tanggal</span>
+          <span id="osDate">-</span>
+        </div>
+        <div class="os-info-row">
+          <span>Pembayaran</span>
+          <span id="osPayment">-</span>
+        </div>
+        <div class="os-info-row">
+          <span>Status</span>
+          <span><span class="os-status-badge" id="osStatus">Diproses</span></span>
+        </div>
+        <div class="os-info-row">
+          <span>Total Bayar</span>
+          <span class="os-total" id="osTotal">Rp 0</span>
+        </div>
+      </div>
+
+      <!-- Daftar item -->
+      <div class="os-items">
+        <h4>Produk yang Dipesan</h4>
+        <div id="osItemList"></div>
+      </div>
+
+      <!-- Catatan -->
+      <div class="os-note">
+        🏦 Segera transfer sesuai total ke rekening yang sudah dipilih.<br/>
+        📱 Pesananmu sudah kami kirim ke WhatsApp — harap kirimkan bukti pembayaran agar pesanan segera diproses. 🌷
+      </div>
+
+      <!-- Tombol aksi -->
+      <div class="os-actions">
+        <button class="os-btn-primary" onclick="openStruk()">
+          <i data-lucide="receipt"></i> Lihat Struk Pembayaran
+        </button>
+        <a href="tracking.html" class="os-btn-outline">
+          <i data-lucide="map-pin"></i> Lihat Status Pesanan
+        </a>
+        <a href="index.html#products" class="os-btn-outline">
+          <i data-lucide="shopping-bag"></i> Belanja Lagi
+        </a>
+      </div>
+
+    </div>
+
+  <!-- ===== MODAL STRUK ===== -->
+  <div class="struk-overlay" id="strukOverlay" onclick="closeStrukOutside(event)">
+    <div class="struk-box">
+      <div class="struk" id="strukContent">
+        <!-- diisi JS -->
+      </div>
+      <div class="struk-actions">
+        <button class="struk-print-btn" onclick="printStruk()">🖨️ Cetak / Simpan PDF</button>
+        <button class="struk-close-btn" onclick="closeStruk()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+    loadState();
+    updateNavAuth();
+
+    /* ===== FUNGSI STRUK ===== */
+    function fmtRp(n) { return "Rp " + Number(n).toLocaleString("id-ID"); }
+
+    function openStruk() {
+      const order = getLastOrder();
+      const el    = document.getElementById("strukContent");
+      if (!el) return;
+
+      if (!order) {
+        el.innerHTML = "<p style='text-align:center;padding:2rem;color:#999'>Data struk tidak ditemukan.</p>";
+        document.getElementById("strukOverlay").classList.add("open");
+        return;
+      }
+
+      const now     = new Date(order.createdAt);
+      const tgl     = now.toLocaleDateString("id-ID", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+      const jam     = now.toLocaleTimeString("id-ID", { hour:"2-digit", minute:"2-digit" });
+      const diskon  = order.discount || 0;
+      const ongkir  = order.shipping || 0;
+      const itemRows = (order.items || []).map(i => `
+        <div class="struk-item">
+          <div class="struk-item-name">${i.emoji || "💐"} ${i.name}</div>
+          <div class="struk-item-sub">
+            <span>${fmtRp(i.price)} × ${i.qty}</span>
+            <span>${fmtRp(i.price * i.qty)}</span>
+          </div>
+        </div>`).join("");
+
+      el.innerHTML = `
+        <div class="struk-header">
+          <div class="struk-logo">🌸</div>
+          <div class="struk-store">LIFA FLORA</div>
+          <div class="struk-tagline">Buket Bunga Cantik & Berkualitas</div>
+          <div class="struk-tagline">WA: 0877-1079-3723</div>
+        </div>
+
+        <hr class="struk-divider bold" />
+
+        <div class="struk-row">
+          <span class="label">No. Pesanan</span>
+          <span class="value">#${order.orderNum}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Tanggal</span>
+          <span class="value">${tgl}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Jam</span>
+          <span class="value">${jam}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Pembeli</span>
+          <span class="value">${order.nama || "-"}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Telepon</span>
+          <span class="value">${order.phone || "-"}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Alamat</span>
+          <span class="value">${order.alamat || "-"}</span>
+        </div>
+
+        <hr class="struk-divider" />
+        <div style="font-size:0.75rem;font-weight:700;margin-bottom:0.35rem;letter-spacing:0.05em;">DETAIL PESANAN</div>
+        <div class="struk-items">${itemRows}</div>
+
+        <hr class="struk-divider" />
+
+        <div class="struk-row">
+          <span class="label">Subtotal</span>
+          <span class="value">${fmtRp(order.subtotal || order.total)}</span>
+        </div>
+        ${diskon > 0 ? `<div class="struk-row"><span class="label">Diskon</span><span class="value">-${fmtRp(diskon)}</span></div>` : ""}
+        <div class="struk-row">
+          <span class="label">Ongkir</span>
+          <span class="value">${ongkir === 0 ? "GRATIS" : fmtRp(ongkir)}</span>
+        </div>
+
+        <hr class="struk-divider bold" />
+
+        <div class="struk-total-row">
+          <span>TOTAL</span>
+          <span>${fmtRp(order.total)}</span>
+        </div>
+        <div class="struk-row" style="margin-top:0.3rem;">
+          <span class="label">Pembayaran</span>
+          <span class="value">${order.payment || "-"}</span>
+        </div>
+        <div class="struk-row">
+          <span class="label">Status</span>
+          <span class="value">${order.status || "Diproses"}</span>
+        </div>
+
+        <hr class="struk-divider" />
+
+        <div class="struk-footer">
+          <p class="big">🌷 Terima Kasih! 🌷</p>
+          <p>Pesanan sudah diterima & sedang diproses.</p>
+          <p>Simpan struk ini sebagai bukti pembayaran.</p>
+          <p style="margin-top:0.5rem;font-size:0.68rem;color:#aaa;">
+            Dicetak: ${new Date().toLocaleString("id-ID")}
+          </p>
+        </div>
+      `;
+
+      document.getElementById("strukOverlay").classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeStruk() {
+      document.getElementById("strukOverlay").classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    function closeStrukOutside(e) {
+      if (e.target.id === "strukOverlay") closeStruk();
+    }
+
+    function printStruk() {
+      window.print();
+    }
+
+    // Tampilkan data pesanan terakhir
+    const order = getLastOrder();
+
+    if (order) {
+      document.getElementById('osOrderNum').textContent = '#' + order.orderNum;
+      document.getElementById('osDate').textContent     = fmtDate(order.createdAt);
+      document.getElementById('osPayment').textContent  = order.payment || '-';
+      document.getElementById('osStatus').textContent   = order.status  || 'Diproses';
+      document.getElementById('osTotal').textContent    = formatPrice(order.total);
+
+      const itemList = document.getElementById('osItemList');
+      itemList.innerHTML = order.items.map(item => `
+        <div class="os-item">
+          <div class="os-item-emoji">${item.emoji || '💐'}</div>
+          <div class="os-item-name">${item.name}</div>
+          <div class="os-item-qty">x${item.qty}</div>
+          <div class="os-item-price">${formatPrice(item.price * item.qty)}</div>
+        </div>
+      `).join('');
+    } else {
+      // Tidak ada data pesanan
+      document.getElementById('osItemList').innerHTML =
+        '<p style="color:var(--text-light);font-size:0.88rem;">Data pesanan tidak ditemukan.</p>';
+    }
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+  <script>initCSWidget();</script>
+</body>
+</html>

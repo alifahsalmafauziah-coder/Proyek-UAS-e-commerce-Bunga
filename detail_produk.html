@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Produk - lifa flora</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./style.css" />
+  
+  <style>
+    :root {
+      --primary: #E8758F;      /* Luxurious Muted Rose */
+  --ad-pink-lt:  #FDE8EE;
+      --accent:   #FFF5F8 ;  /* Soft Premium Pink */
+      --bg-ivory: #FDFBF7;     /* High-end Ivory White */
+      --bg-beige: #6DA58A;     /* Elegant Nude Beige */
+      --text-dark: #E8F5EE;    /* Deep Mahogany Dark Text */
+      --text-muted: #FAFAF8;   /* Rose Muted Accent */
+      --star-color: #F0E6EC;   /* Elegant Premium Gold */
+    }
+
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-beige);
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+    }
+
+    .sold-count {
+      color: var(--text-muted);
+      font-size: 13px;
+      border-left: 1px solid var(--accent);
+      padding-left: 10px;
+      margin-left: 5px;
+    }
+
+    .review-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid var(--accent);
+    }
+
+    .review-card {
+      background: var(--bg-ivory);
+      border: 1px solid var(--bg-beige);
+      padding: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(58, 35, 38, 0.02);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .reviewer-name {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-dark);
+    }
+
+    .review-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" onclick="if(typeof navigateTo === 'function') navigateTo('homeView'); else window.location.href='./index.html';">
+        <span class="brand-logo" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; color: var(--primary);">IBA</span>
+        <span class="brand-name" style="font-family: 'Cormorant Garamond', serif; font-weight: 500; letter-spacing: 1px; color: var(--text-dark);">Indah's Beauté Atelier</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav class="nav" id="navMenu">
+        <a class="nav-link" href="#" onclick="navigateTo('homeView')"><i class="fa-solid fa-house"></i> Home</a>
+        <a class="nav-link" href="#" onclick="navigateTo('aboutView')"><i class="fa-solid fa-info-circle"></i> Tentang</a>
+        <a class="nav-link" href="#" onclick="navigateTo('productsView')"><i class="fa-solid fa-bag-shopping"></i> Produk</a>
+        <a class="nav-link" href="#" onclick="navigateTo('cartView')"><i class="fa-solid fa-cart-shopping"></i> Keranjang
+          <span class="badge" id="cartBadge" style="background: var(--primary);">0</span>
+        </a>
+        <a class="nav-link" href="#" onclick="navigateTo('loginView')" id="loginLink"><i class="fa-solid fa-user"></i> Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="productDetailView" class="page-view active container" style="padding: 40px 20px;">
+    <div id="detailRoot">
+      </div>
+  </main>
+
+  <footer class="site-footer" style="background: var(--bg-ivory); border-top: 1px solid var(--bg-beige); margin-top: 60px;">
+    <div class="container footer-grid">
+      <div>
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; color: var(--primary);"><i class="fa-solid fa-store"></i> Indah's Beauté Atelier</h3>
+        <p class="muted">Kurasi kosmetik mewah, skincare premium, haircare, dan parfum eksklusif berkualitas tinggi untuk kecantikan Anda.</p>
+      </div>
+      <div>
+        <h4>Kontak Atelier</h4>
+        <ul class="footer-list" style="list-style: none; padding: 0;">
+          <li><i class="fa-solid fa-envelope" style="color: var(--primary);"></i> Email: <a href="mailto:concierge@indahbeaute.test">concierge@indahbeaute.test</a></li>
+          <li><i class="fa-solid fa-phone" style="color: var(--primary);"></i> Telepon: <a href="tel:+62215550199">+62 21-555-0199</a></li>
+          <li><i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> Luxury Arcade, Lantai 1, Jakarta</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Info Premium</h4>
+        <ul class="footer-list" style="list-style: none; padding: 0;">
+          <li><i class="fa-solid fa-circle-info"></i> Data Terenkapsulasi (Tanpa Database)</li>
+          <li><i class="fa-solid fa-star" style="color: var(--star-color);"></i> Akurasi Ulasan Bintang Premium 4.9+</li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom" style="text-align: center; padding-top: 20px; border-top: 1px solid var(--bg-beige);">
+      <span>© <span id="year"></span> Indah's Beauté Atelier. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="./script.js" type="module"></script>
+  
+  <script>
+    document.getElementById('year').innerText = new Date().getFullYear();
+
+    // Bank data ulasan spesifik produk berdasarkan kata kunci nama produk
+    const databaseUlasan = {
+      skincare: [
+        { nama: "Alexandra V.", bintang: 5.0, teks: "Sangat menghidrasi kulit! Setelah pemakaian satu minggu, wajah terlihat jauh lebih kenyal dan bercahaya alami." },
+        { nama: "Clara S.", bintang: 4.9, teks: "Teksturnya sangat mewah dan cepat meresap. Sangat direkomendasikan untuk ritual malam hari." }
+      ],
+      parfum: [
+        { nama: "Giselle R.", bintang: 5.0, teks: "Aroma extrait de parfum ini sangat elegan dan memikat. Bertahan hingga lebih dari 12 jam di kulit saya." },
+        { nama: "Helena W.", bintang: 4.9, teks: "Kombinasi aroma yang sangat berkelas, tidak pasaran. Semua orang di atelier menanyakan parfum apa yang saya pakai." }
+      ],
+      default: [
+        { nama: "Nadia K.", bintang: 5.0, teks: "Kualitas premium yang tidak perlu diragukan lagi. Kemasannya sangat mewah dan produk berfungsi dengan sempurna!" },
+        { nama: "Sophia B.", bintang: 4.9, teks: "Sangat puas dengan kurasi produk keindahan dari IBA. Kualitas pelayanan kelas atas." }
+      ]
+    };
+
+    // Fungsi Interseptor untuk menyuntikkan Rating Bintang Premium, Terjual, & Daftar Ulasan Pelanggan
+    function tampilkanDetailProdukEksklusif(produk) {
+      const root = document.getElementById('detailRoot');
+      if (!root) return;
+
+      // 1. Logika penentuan generator ulasan (Menyesuaikan jenis produk secara otomatis)
+      const namaKecil = produk.name.toLowerCase();
+      let ulasanTerpilih = databaseUlasan.default;
+      if (namaKecil.includes('serum') || namaKecil.includes('cream') || namaKecil.includes('skin')) {
+        ulasanTerpilih = databaseUlasan.skincare;
+      } else if (namaKecil.includes('parfum') || namaKecil.includes('extrait') || namaKecil.includes('scent')) {
+        ulasanTerpilih = databaseUlasan.parfum;
+      }
+
+      // 2. Kalkulasi nilai akumulasi rata-rata bintang terkecil 4.9
+      const totalBintang = ulasanTerpilih.reduce((acc, curr) => acc + curr.bintang, 0);
+      const rerataRating = (totalBintang / ulasanTerpilih.length).toFixed(1);
+
+      // 3. Simulasi angka terjual unik berdasarkan ID produk agar konsisten
+      const jumlahTerjual = (produk.id ? (produk.id * 47) + 124 : 185);
+
+      // Render Struktur Tampilan Gabungan Detail Utama & Komponen Baru
+      root.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 20px;">
+          <div>
+            <img src="${produk.image || 'https://via.placeholder.com/400'}" alt="${produk.name}" style="width: 100%; border: 1px solid var(--accent); max-height: 450px; object-fit: cover;" />
+          </div>
+          <div>
+            <h1 style="font-family: 'Cormorant Garamond', serif; font-size: 36px; margin-top: 0; margin-bottom: 10px; color: var(--text-dark); font-style: italic;">${produk.name}</h1>
+            
+            <div class="rating-badge">
+              <span style="color: var(--star-color);"><i class="fa-solid fa-star"></i> ${rerataRating}</span>
+              <span class="sold-count">${jumlahTerjual} Terjual</span>
+            </div>
+
+            <div style="font-size: 22px; color: var(--primary); font-weight: 500; margin-bottom: 20px;">
+              Rp ${Number(produk.price).toLocaleString('id-ID')}
+            </div>
+            
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 25px;">${produk.description || 'Deskripsi eksklusif produk keperawatan mewah Indah\'s Beauté Atelier.'}</p>
+            
+            <button class="btn btn-primary" onclick="if(typeof addToCart === 'function') { addToCart(${produk.id}); } else { alert('Dimasukkan ke keranjang (Demo)'); }" style="padding: 14px 28px; background: var(--primary); color: var(--bg-ivory); border: none; font-weight: 500; letter-spacing: 1px; cursor: pointer;">
+              <i class="fa-solid fa-cart-plus"></i> Tambahkan Ke Keranjang
+            </button>
+          </div>
+        </div>
+
+        <div class="review-section">
+          <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--text-dark); margin-bottom: 20px;">Ulasan Pelanggan (${ulasanTerpilih.length})</h3>
+          <div id="reviewsContainer">
+            ${ulasanTerpilih.map(rev => `
+              <div class="review-card">
+                <div class="review-header">
+                  <span class="reviewer-name">${rev.nama}</span>
+                  <span style="color: var(--star-color); font-size: 12px;">
+                    ${Array(Math.floor(rev.bintang)).fill('<i class="fa-solid fa-star"></i>').join('')}
+                    ${rev.bintang % 1 !== 0 ? '<i class="fa-solid fa-star-half-stroke"></i>' : ''}
+                    <span style="color: var(--text-dark); margin-left: 4px; font-weight:500;">${rev.bintang.toFixed(1)}</span>
+                  </span>
+                </div>
+                <div class="review-text">"${rev.teks}"</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Simulasi inisialisasi jika halaman diakses langsung atau data cadangan dipicu
+    window.addEventListener('DOMContentLoaded', () => {
+      const dummyProduct = {
+        id: 3,
+        name: "L'Élixir de Parfum Premium",
+        price: 2450000,
+        image: "",
+        description: "Parfum dengan konsentrasi tinggi extrait de parfum yang memancarkan kemewahan mawar malam hari dan vanila premium."
+      };
+      // Panggil fungsi render detail otomatis
+      tampilkanDetailProdukEksklusif(dummyProduct);
+    });
+  </script>
+</body>
+</html> 
+        

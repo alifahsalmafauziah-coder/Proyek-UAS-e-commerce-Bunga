@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Produk — Lifa Flora Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin_style.css" />
+  <style>
+    .foto-upload-area {
+      border: 2px dashed var(--ad-border);
+      border-radius: var(--ad-radius);
+      padding: 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--ad-offwhite);
+      position: relative;
+    }
+    .foto-upload-area:hover { border-color: var(--ad-pink); background: var(--ad-pink-lt); }
+    .foto-upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .foto-upload-icon { font-size: 2rem; margin-bottom: 0.35rem; }
+    .foto-upload-text { font-size: 0.82rem; color: var(--ad-muted); }
+    .foto-preview-wrap {
+      display: none; position: relative;
+      border-radius: var(--ad-radius); overflow: hidden;
+      border: 2px solid var(--ad-pink);
+    }
+    .foto-preview-wrap img {
+      width: 100%; height: 160px; object-fit: cover; display: block;
+    }
+    .foto-preview-remove {
+      position: absolute; top: 6px; right: 6px;
+      background: rgba(0,0,0,0.6); color: white;
+      border: none; border-radius: 50%;
+      width: 24px; height: 24px; cursor: pointer;
+      font-size: 0.75rem; display: flex; align-items: center; justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="ad-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="ad-sidebar">
+    <div class="ad-brand">
+      <div class="ad-brand-icon">🌸</div>
+      <div class="ad-brand-name">Lifa <em>Flora</em></div>
+      <div class="ad-brand-sub">Panel Admin</div>
+    </div>
+    <nav class="ad-nav">
+      <a href="admin_dashboard.html" class="ad-nav-link"><span class="ad-nav-icon">📊</span> Dashboard</a>
+      <a href="admin_produk.html"    class="ad-nav-link active"><span class="ad-nav-icon">🌹</span> Produk</a>
+      <a href="admin_pesanan.html"   class="ad-nav-link"><span class="ad-nav-icon">📦</span> Pesanan</a>
+    </nav>
+    <div class="ad-sidebar-footer">
+      <button class="ad-logout-btn" onclick="doLogout()">🚪 Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="ad-main">
+    <div class="ad-topbar">
+      <div>
+        <div class="ad-page-title">Tambah Produk</div>
+        <div class="ad-page-sub">Isi detail produk buket baru</div>
+      </div>
+    </div>
+
+    <div class="ad-form-card">
+      <form id="formTambahProduk">
+        <div class="ad-form-grid">
+
+          <div class="ad-field full">
+            <label for="tpNama">Nama Produk *</label>
+            <input type="text" id="tpNama" placeholder="Contoh: Rose Elegance" required />
+          </div>
+
+          <div class="ad-field">
+            <label for="tpHarga">Harga (Rp) *</label>
+            <input type="number" id="tpHarga" placeholder="185000" min="0" required />
+          </div>
+
+          <div class="ad-field">
+            <label for="tpStok">Stok Awal *</label>
+            <input type="number" id="tpStok" placeholder="10" min="0" required />
+          </div>
+
+          <div class="ad-field">
+            <label for="tpKategori">Kategori *</label>
+            <select id="tpKategori" required>
+              <option value="">-- Pilih Kategori --</option>
+              <option value="anniversary">Anniversary</option>
+              <option value="ulang tahun">Ulang Tahun</option>
+              <option value="wisuda">Wisuda</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+
+          <div class="ad-field">
+            <label for="tpEmoji">Emoji Produk</label>
+            <input type="text" id="tpEmoji" placeholder="💐" maxlength="4" />
+          </div>
+
+          <div class="ad-field full">
+            <label>Foto Produk</label>
+            <div class="foto-upload-area" id="tpFotoArea" onclick="document.getElementById('tpFoto').click()">
+              <input type="file" id="tpFoto" accept="image/*" onchange="previewFoto('tpFoto','tpFotoPreview','tpFotoArea')" />
+              <div class="foto-upload-icon">📸</div>
+              <div class="foto-upload-text">Klik untuk pilih foto produk<br/><small>JPG, PNG, WEBP — Maks. 2MB</small></div>
+            </div>
+            <div class="foto-preview-wrap" id="tpFotoPreview">
+              <img id="tpFotoImg" src="" alt="Preview" />
+              <button type="button" class="foto-preview-remove" onclick="removeFoto('tpFoto','tpFotoPreview','tpFotoArea')">✕</button>
+            </div>
+          </div>
+
+          <div class="ad-field full">
+            <label for="tpDesc">Deskripsi Produk</label>
+            <textarea id="tpDesc" placeholder="Tulis deskripsi singkat produk..."></textarea>
+          </div>
+
+          <label class="ad-checkbox-row">
+            <input type="checkbox" id="tpHot" />
+            🔥 Tandai sebagai produk <strong>Hot / Terlaris</strong>
+          </label>
+
+          <div class="ad-form-actions">
+            <button type="submit" class="ad-submit-btn">✅ Simpan Produk</button>
+            <a href="admin_produk.html" class="ad-cancel-btn">Batal</a>
+          </div>
+          
+
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="admin_script.js"></script>
+<script>initTambahProduk();</script>
+</body>
+</html>

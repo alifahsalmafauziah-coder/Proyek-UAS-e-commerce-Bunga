@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daftar — Lifa Flora</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      background: var(--pink-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 1rem 3rem;
+    }
+
+    .auth-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 440px;
+      border: 1px solid var(--border);
+    }
+
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-logo a {
+      text-decoration: none;
+    }
+
+    .auth-logo .logo-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .auth-logo .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--text-dark);
+    }
+
+    .auth-logo .logo-text em {
+      color: var(--pink-deep);
+    }
+
+    .auth-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .auth-subtitle {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .auth-field {
+      margin-bottom: 1.1rem;
+    }
+
+    .auth-field label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      margin-bottom: 0.4rem;
+    }
+
+    .auth-field input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--off-white);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .auth-field input:focus {
+      border-color: var(--pink-deep);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(232,117,143,0.12);
+    }
+
+    .auth-btn {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 0.85rem;
+      background: var(--pink-deep);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .auth-btn:hover {
+      background: #d4617a;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .auth-msg {
+      margin-top: 0.75rem;
+      font-size: 0.88rem;
+      text-align: center;
+      min-height: 1.2rem;
+      color: #d4617a;
+    }
+
+    .auth-msg.success {
+      color: var(--green-deep);
+    }
+
+    .auth-footer-text {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-light);
+      margin-top: 1.5rem;
+    }
+
+    .auth-footer-text a {
+      color: var(--pink-deep);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .auth-footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    .auth-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .auth-hint {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-icon">🌸</span>
+        <span class="logo-text">Lifa <em>Flora</em></span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="index.html#products" class="nav-link">Produk</a></li>
+        <li><a href="index.html#contact" class="nav-link">Kontak</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== AUTH FORM ===================== -->
+  <main class="auth-page">
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        <a href="index.html">
+          <span class="logo-icon">🌸</span>
+          <span class="logo-text">Lifa <em>Flora</em></span>
+        </a>
+      </div>
+
+      <h1 class="auth-title">Buat Akun Baru</h1>
+      <p class="auth-subtitle">Daftar gratis dan mulai belanja buket impianmu</p>
+
+      <form id="registerForm" onsubmit="handleRegister(event)">
+        <div class="auth-field">
+          <label for="regNama">Nama Lengkap</label>
+          <input type="text" id="regNama" name="nama" placeholder="Nama kamu..." required maxlength="60" />
+        </div>
+        <div class="auth-field">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" name="email" placeholder="nama@email.com" required />
+        </div>
+        <div class="auth-field">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" name="password" placeholder="Minimal 6 karakter" required minlength="6" />
+          <p class="auth-hint">Minimal 6 karakter</p>
+        </div>
+        <div class="auth-field">
+          <label for="regConfirm">Konfirmasi Password</label>
+          <input type="password" id="regConfirm" name="confirm" placeholder="Ulangi password" required />
+        </div>
+        <button type="submit" class="auth-btn">Buat Akun</button>
+        <p class="auth-msg" id="registerMsg"></p>
+      </form>
+
+      <hr class="auth-divider" />
+
+      <p class="auth-footer-text">
+        Sudah punya akun? <a href="login.html">Masuk di sini</a>
+      </p>
+
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+    loadState();
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const nama     = document.getElementById('regNama').value.trim();
+      const email    = document.getElementById('regEmail').value.trim().toLowerCase();
+      const password = document.getElementById('regPassword').value;
+      const confirm  = document.getElementById('regConfirm').value;
+      const msgEl    = document.getElementById('registerMsg');
+
+      if (password !== confirm) {
+        msgEl.textContent = '❌ Password dan konfirmasi tidak cocok.';
+        msgEl.className = 'auth-msg';
+        return;
+      }
+
+      const users = getUsers();
+
+      if (users.some(u => u.email === email)) {
+        msgEl.textContent = '❌ Email sudah terdaftar. Coba email lain.';
+        msgEl.className = 'auth-msg';
+        return;
+      }
+
+      const newUser = { id: 'u_' + Date.now(), nama, email, password };
+      users.push(newUser);
+      saveUsers(users);
+
+      msgEl.textContent = '✅ Akun berhasil dibuat! Mengarahkan ke halaman login...';
+      msgEl.className = 'auth-msg success';
+      setTimeout(() => { window.location.href = 'login.html'; }, 1200);
+    }
+
+    // Jika sudah login, redirect ke home
+    if (getSession()) {
+      window.location.href = 'index.html';
+    }
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+  <script>initCSWidget();</script>
+</body>
+</html>
